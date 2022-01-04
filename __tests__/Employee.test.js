@@ -11,3 +11,4 @@ test("creates an employee object", () => {
     expect(employee.email).toEqual(expect.any(String));
     expect(employee.officeNumber).toEqual(expect.any(Number));
 });
+

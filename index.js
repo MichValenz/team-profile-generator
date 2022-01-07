@@ -1,3 +1,3 @@
-const Roster = require("./lib.Roster");
+const Roster = require("./lib/Roster");
 
-new Roster().initialRoster();
+new Roster().initializeRoster();

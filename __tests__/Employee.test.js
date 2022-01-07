@@ -10,5 +10,6 @@ test("creates an employee object", () => {
     expect(employee.id).toEqual(expect.any(Number));
     expect(employee.email).toEqual(expect.any(String));
     expect(employee.officeNumber).toEqual(expect.any(Number));
+    console.log(new Employee)
 });
 

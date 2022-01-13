@@ -1,11 +1,9 @@
 const inquirer = require("inquirer");
+const generatePage = require("./src/page-template");
 const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
 const Intern = require ("./lib/Intern");
-
-
-const generatePage = require('./src/page-template')
 const {writeFile, copyFile} = require("./utils/generate-site.js");
 
 function Roster() {
@@ -298,23 +296,27 @@ console.info(this.employeesArr);
   
 
 
-// new Roster().initializeRoster()
+new Roster().initializeRoster()
+// .then(employeeRoster)
+// .then(setIntern)
+// .then(setEngineer)
+// .then(statusCheck)
 // .then((employeesArr) => {
 //     return generatePage(employeesArr)
-// })
-//     .then((pageHTML) => {
-//         return writeFile(pageHTML);
-//     })
-//     .then((writeFileResponse) => {
-//         console.log(writeFileResponse);
-//         return copyFile();
-//     })
-//     .then((copyFileResponse) => {
-//         console.log(copyFileResponse);
-//     })
-//     .catch((err) => {
-//         console.log(err);
-//     });
+//})
+    // .then((pageHTML) => {
+    //     return writeFile(pageHTML);
+    // })
+    // .then((writeFileResponse) => {
+    //     console.log(writeFileResponse);
+    //     return copyFile();
+    // })
+    // .then((copyFileResponse) => {
+    //     console.log(copyFileResponse);
+    // })
+    // .catch((err) => {
+    //     console.log(err);
+    // });
 
 
 

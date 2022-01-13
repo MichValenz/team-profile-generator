@@ -4,7 +4,7 @@ const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
 const Intern = require ("./lib/Intern");
-const {writeFile, copyFile} = require("./utils/generate-site.js");
+//const {writeFile, copyFile} = require("./utils/generate-site.js");
 
 function Roster() {
   this.employeesArr = [];
@@ -99,9 +99,9 @@ Roster.prototype.employeeRoster = function () {
     }])
     .then(({employeeType}) => {
         if (employeeType === "Intern") {
-            return this.setIntern();
+             this.setIntern();
         } else if (employeeType === "Engineer") {
-            return this.setEngineer();
+            this.setEngineer();
         } else if (employeeType === "Cancel") {
             console.log("You've chosen to cancel. Roster complete.")
         }
@@ -282,43 +282,52 @@ inquirer
   })
   .then(( nextStepAnsw ) => {
     if (nextStepAnsw.nextStep) {
-      return this.employeeRoster();
+       this.employeeRoster();
     } else if (!nextStepAnsw.nextStep){
       console.log("Roster completed.")
-      return this.employeesArr;
+       return this.employeesArr;
       
     }
 
   })
-console.info(this.employeesArr);
-}
+
+};
 
   
 
 
-new Roster().initializeRoster()
-// .then(employeeRoster)
-// .then(setIntern)
-// .then(setEngineer)
-// .then(statusCheck)
-// .then((employeesArr) => {
-//     return generatePage(employeesArr)
-//})
-    // .then((pageHTML) => {
-    //     return writeFile(pageHTML);
-    // })
-    // .then((writeFileResponse) => {
-    //     console.log(writeFileResponse);
-    //     return copyFile();
-    // })
-    // .then((copyFileResponse) => {
-    //     console.log(copyFileResponse);
-    // })
-    // .catch((err) => {
-    //     console.log(err);
-    // });
+// new Roster()
+//   .initializeRoster()
+//   .then((employeesArr) => {
+//     return generatePage(employeesArr);
+//   })
+//   .then((pageHTML) => {
+//     return writeFile(pageHTML);
+//   })
+//   .then((writeFileResponse) => {
+//     console.log(writeFileResponse);
+//     return copyFile();
+//   })
+//   .then((copyFileResponse) => {
+//     console.log(copyFileResponse);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
 
+new Roster.initializeRoster()
+  
+  .then((employeesArr) => {
+    const pageHTML = generatePage(employeesArr);
 
+    fs.writeFile("./index.html", pageHTML, (err) => {
+      if (err) throw new Error(err);
+
+      console.log(
+        "Page created! Check out index.html in this directory to see it!"
+      );
+    });
+  });
 
 
 module.exports = Roster;

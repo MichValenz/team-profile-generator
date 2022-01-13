@@ -1,3 +1,3 @@
-const Roster = require("./lib/Roster");
+const Roster = require("./Roster.js");
 
 new Roster().initializeRoster();

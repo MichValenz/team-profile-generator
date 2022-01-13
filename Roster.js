@@ -1,10 +1,12 @@
 const inquirer = require("inquirer");
-const Employee = require("./Employee");
-const Engineer = require("./Engineer");
-const Manager = require("./Manager");
-const Intern = require ("./Intern");
-// const generatePage = require("./src/page-template");
-// const {writeFile, copyFile} = require("./utils/generate-site");
+const Employee = require("./lib/Employee");
+const Engineer = require("./lib/Engineer");
+const Manager = require("./lib/Manager");
+const Intern = require ("./lib/Intern");
+
+
+const generatePage = require('./src/page-template')
+const {writeFile, copyFile} = require("./utils/generate-site.js");
 
 function Roster() {
   this.employeesArr = [];
@@ -12,7 +14,7 @@ function Roster() {
   this.manager;
   this.intern;
   this.engineer;
-  this.roster;
+  
 }
 
 Roster.prototype.initializeRoster = function () {
@@ -68,14 +70,14 @@ Roster.prototype.initializeRoster = function () {
           },
         },
       ])
-      .then(({name, id, email, officeNumbers}) => {
-        this.manager = new Manager(name, id, email, officeNumbers);
-
+      .then((answers ) => {
         
-        this.employeesArr.push(Manager);
+        console.log(answers);
+        this.employeesArr.push((new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOfficeNum)))
 
-        console.log(this.employeesArr)
-
+        console.table(this.employeesArr);
+        
+        
         this.employeeRoster();
 
       });
@@ -115,7 +117,7 @@ Roster.prototype.setIntern = function () {
     .prompt([
       {
         type: "input",
-        name: "internName",
+        name: "empName",
         message: "What is the employee's name?",
         validate: (internNameInput) => {
           if (internNameInput) {
@@ -128,7 +130,7 @@ Roster.prototype.setIntern = function () {
 
       {
         type: "input",
-        name: "internID",
+        name: "empID",
         message: "Enter the employee's ID.",
         validate: (internIDInput) => {
           if (internIDInput) {
@@ -140,7 +142,7 @@ Roster.prototype.setIntern = function () {
       },
       {
         type: "input",
-        name: "internEmail",
+        name: "empEmail",
         message: "Enter the employee's email.",
         validate: (internEmailInput) => {
           if (internEmailInput) {
@@ -152,7 +154,7 @@ Roster.prototype.setIntern = function () {
       },
       {
         type: "input",
-        name: "internPhone",
+        name: "empPhone",
         message: "Enter the employee's office phone number.",
         validate: (internPhoneInput) => {
           if (internPhoneInput) {
@@ -197,7 +199,7 @@ Roster.prototype.setEngineer = function () {
     .prompt([
       {
         type: "input",
-        name: "engineerName",
+        name: "empName",
         message: "What is the employee's name?",
         validate: (engineerNameInput) => {
           if (engineerNameInput) {
@@ -210,7 +212,7 @@ Roster.prototype.setEngineer = function () {
 
       {
         type: "input",
-        name: "engineerID",
+        name: "empID",
         message: "Enter the employee's ID.",
         validate: (engineerIDInput) => {
           if (engineerIDInput) {
@@ -222,7 +224,7 @@ Roster.prototype.setEngineer = function () {
       },
       {
         type: "input",
-        name: "engineerEmail",
+        name: "empEmail",
         message: "Enter the employee's email.",
         validate: (engineerEmailInput) => {
           if (engineerEmailInput) {
@@ -234,7 +236,7 @@ Roster.prototype.setEngineer = function () {
       },
       {
         type: "input",
-        name: "engineerPhone",
+        name: "empPhone",
         message: "Enter the employee's office phone number.",
         validate: (engineerPhoneInput) => {
           if (engineerPhoneInput) {
@@ -284,11 +286,18 @@ inquirer
       return this.employeeRoster();
     } else if (!nextStepAnsw.nextStep){
       console.log("Roster completed.")
+      return this.employeesArr;
+      
     }
-  })}
+
+  })
+console.info(this.employeesArr);
+}
+
+  
 
 
-// initializeRoster()
+// new Roster().initializeRoster()
 // .then((employeesArr) => {
 //     return generatePage(employeesArr)
 // })
@@ -305,6 +314,7 @@ inquirer
 //     .catch((err) => {
 //         console.log(err);
 //     });
+
 
 
 

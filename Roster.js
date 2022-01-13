@@ -177,19 +177,17 @@ Roster.prototype.setIntern = function () {
         },
       },
     ])
-    .then((internAnswers) => {
-      this.intern = new Intern(
-        internAnswers.name,
-        internAnswers.id,
-        internAnswers.email,
-        internAnswers.officeNumbers,
-        internAnswers.school
-      );
-      this.employeesArr.push(Intern);
-      console.log(this.employeesArr);
-      this.statusCheck();
-      
-      
+    .then((internAnswers) => { 
+     this.employeesArr.push(
+         new Intern(
+           internAnswers.empName,
+           internAnswers.empID,
+           internAnswers.empEmail,
+           internAnswers.empPhone,
+           internAnswers.school))
+        
+        console.table(this.employeesArr);
+        this.statusCheck();
 
     });
 }
@@ -257,18 +255,21 @@ Roster.prototype.setEngineer = function () {
             console.log("Please enter the engineer's GitHub username.");
           }
         },
-      }
+      },
     ])
-    .then((engineerAnswers) => {
-      this.engineer = new Engineer(
-        engineerAnswers.name,
-        engineerAnswers.id,
-        engineerAnswers.email,
-        engineerAnswers.officeNumbers,
-        engineerAnswers.github,
+    .then((engAnswers) => {
+      this.employeesArr.push(
+        new Intern(
+          engAnswers.empName,
+          engAnswers.empID,
+          engAnswers.empEmail,
+          engAnswers.empPhone,
+          engAnswers.github
+        )
       );
-      this.employeesArr.push(Engineer);
-        this.statusCheck();
+
+      console.table(this.employeesArr);
+      this.statusCheck();
     });
 
 };

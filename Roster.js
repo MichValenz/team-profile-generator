@@ -1,5 +1,6 @@
 const inquirer = require("inquirer");
 const generatePage = require("./src/page-template");
+const {write} = require("./utils/generate-site")
 const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
@@ -285,9 +286,13 @@ inquirer
        this.employeeRoster();
     } else if (!nextStepAnsw.nextStep){
       console.log("Roster completed.")
-       return this.employeesArr;
+      //  return this.employeesArr;
+      console.log(this.employeesArr)
+      write(generatePage(this.employeesArr));
       
     }
+
+
 
   })
 
@@ -296,14 +301,15 @@ inquirer
   
 
 
-// new Roster()
-//   .initializeRoster()
-//   .then((employeesArr) => {
-//     return generatePage(employeesArr);
-//   })
-//   .then((pageHTML) => {
-//     return writeFile(pageHTML);
-//   })
+new Roster()
+  .initializeRoster()
+
+  //   .then((employeesArr) => {
+  //   return generatePage(employeesArr);
+  //  })
+  // .then((pageHTML) => {
+  //   return writeFile(pageHTML);
+  // })
 //   .then((writeFileResponse) => {
 //     console.log(writeFileResponse);
 //     return copyFile();
@@ -314,20 +320,6 @@ inquirer
 //   .catch((err) => {
 //     console.log(err);
 //   });
-
-new Roster.initializeRoster()
-  
-  .then((employeesArr) => {
-    const pageHTML = generatePage(employeesArr);
-
-    fs.writeFile("./index.html", pageHTML, (err) => {
-      if (err) throw new Error(err);
-
-      console.log(
-        "Page created! Check out index.html in this directory to see it!"
-      );
-    });
-  });
 
 
 module.exports = Roster;

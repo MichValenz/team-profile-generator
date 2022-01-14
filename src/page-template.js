@@ -14,6 +14,8 @@
 
 // create the projects section
 const generateProjects = (employeesArr) => {
+  console.log("generate proj", employeesArr)
+
   return `
     <section class="my-3" id="portfolio">
       <h2 class="text-dark bg-primary p-2 display-inline-block">Work</h2>
@@ -57,10 +59,12 @@ const generateProjects = (employeesArr) => {
 };
 
 // export function to generate entire page
-module.exports = (templateData) => {
+module.exports = (templateData) => { 
+ 
   // destructure page data by section
-  const { projects, about, ...header } = templateData;
+  // const { projects, about, ...header } = templateData;
 
+console.log(templateData[0])
   return `
   <!DOCTYPE html>
   <html lang="en">
@@ -78,7 +82,8 @@ module.exports = (templateData) => {
     <header>
       <div class="container flex-row justify-space-between align-center py-3">
         <h1 class="page-title text-secondary bg-dark py-2 px-3">${
-          header.name
+           templateData[0]
+          
         }</h1>
         <nav class="flex-row">
           <a class="ml-2 my-1 px-2 py-1 bg-secondary text-dark" href="https://github.com/${
@@ -89,7 +94,7 @@ module.exports = (templateData) => {
     </header>
     <main class="container my-5">
      
-      ${generateProjects(projects)}
+      ${generateProjects(employeesArr)}
     </main>
     <footer class="container text-center py-3">
       <h3 class="text-dark">&copy; ${new Date().getFullYear()} by ${
@@ -100,3 +105,5 @@ module.exports = (templateData) => {
   </html>
   `;
 };
+
+

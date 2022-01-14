@@ -1,6 +1,7 @@
 const inquirer = require("inquirer");
-const generatePage = require("./src/page-template");
-const {write} = require("./utils/generate-site")
+const fs = require("fs");
+const generateTemplate = require("./src/page-template");
+
 const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
@@ -9,7 +10,6 @@ const Intern = require ("./lib/Intern");
 
 function Roster() {
   this.employeesArr = [];
-  this.managerArr = [];
   this.manager;
   this.intern;
   this.engineer;
@@ -17,7 +17,7 @@ function Roster() {
 }
 
 Roster.prototype.initializeRoster = function () {
-    
+   
     inquirer
       .prompt([
         {
@@ -72,46 +72,52 @@ Roster.prototype.initializeRoster = function () {
       .then((answers ) => {
         
         console.log(answers);
+       
         this.employeesArr.push((new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOfficeNum)))
 
         console.table(this.employeesArr);
+
         
         
-        this.employeeRoster();
+        
+        return this.employeeRoster(this.employeesArr);
 
       });
 };
 
 Roster.prototype.employeeRoster = function () {
-  inquirer
-    .prompt([{
 
-      type: "list",
-      name: "employeeType",
-      message: "Add an employee by selecting the employee type.",
-      choices: ["Intern", "Engineer", "Cancel"],
-      validate: (employeeTypeInput) => {
-        if (employeeTypeInput) {
-          return true;
-        } else {
-          console.log("Please select the employee's role.");
-        }
-    },
-    }])
-    .then(({employeeType}) => {
-        if (employeeType === "Intern") {
-             this.setIntern();
-        } else if (employeeType === "Engineer") {
-            this.setEngineer();
-        } else if (employeeType === "Cancel") {
-            console.log("You've chosen to cancel. Roster complete.")
-        }
-    },
-    )
+     inquirer
+       .prompt([
+         {
+           type: "list",
+           name: "employeeType",
+           message: "Add an employee by selecting the employee type.",
+           choices: ["Intern", "Engineer", "Cancel"],
+           validate: (employeeTypeInput) => {
+             if (employeeTypeInput) {
+               return true;
+             } else {
+               console.log("Please select the employee's role.");
+             }
+           },
+         },
+       ])
+       .then(({ employeeType }) => {
+         if (employeeType === "Intern") {
+           this.setIntern();
+         } else if (employeeType === "Engineer") {
+           this.setEngineer();
+         } else if (employeeType === "Cancel") {
+           console.log("You've chosen to cancel. Roster complete.");
+         }
+       });
     
 }
 
 Roster.prototype.setIntern = function () {
+
+  
   inquirer
     .prompt([
       {
@@ -184,14 +190,16 @@ Roster.prototype.setIntern = function () {
            internAnswers.empEmail,
            internAnswers.empPhone,
            internAnswers.school))
-        
+        console.log(this.employeesArr)
         console.table(this.employeesArr);
-        this.statusCheck();
+        return this.statusCheck(this.employeesArr);
 
     });
 }
 
 Roster.prototype.setEngineer = function () {
+
+  
   inquirer
     .prompt([
       {
@@ -258,7 +266,7 @@ Roster.prototype.setEngineer = function () {
     ])
     .then((engAnswers) => {
       this.employeesArr.push(
-        new Intern(
+        new Engineer(
           engAnswers.empName,
           engAnswers.empID,
           engAnswers.empEmail,
@@ -268,7 +276,7 @@ Roster.prototype.setEngineer = function () {
       );
 
       console.table(this.employeesArr);
-      this.statusCheck();
+      return this.statusCheck(this.employeesArr);
     });
 
 };
@@ -281,28 +289,42 @@ inquirer
     message: "Would you like to add another employee?",
     default: false,
   })
-  .then(( nextStepAnsw ) => {
+  .then((nextStepAnsw) => {
     if (nextStepAnsw.nextStep) {
-       this.employeeRoster();
-    } else if (!nextStepAnsw.nextStep){
-      console.log("Roster completed.")
-      //  return this.employeesArr;
-      console.log(this.employeesArr)
-      write(generatePage(this.employeesArr));
-      
+      this.employeeRoster();
+    } else if (!nextStepAnsw.nextStep) {
+      console.log("Roster completed.");
+      this.finalize(this.employeesArr);
     }
-
-
-
   })
 
 };
+
+Roster.prototype.finalize = function (employeesArr){
+   
+    const htmlFile = generateTemplate(employeesArr);
+    console.log("test", employeesArr);
+
+    fs.writeFile("./dist/index.html", htmlFile, (err) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      console.log(
+        "Roster created! Check out the index.html file in the directory."
+      );
+    });
+  };
+
 
   
 
 
 new Roster()
   .initializeRoster()
+
+
+
 
   //   .then((employeesArr) => {
   //   return generatePage(employeesArr);
@@ -320,6 +342,10 @@ new Roster()
 //   .catch((err) => {
 //     console.log(err);
 //   });
+
+
+
+
 
 
 module.exports = Roster;

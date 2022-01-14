@@ -1,58 +1,36 @@
-// create the about section
-// const generateAbout = (aboutText) => {
-//   if (!aboutText) {
-//     return "";
-//   }
+//const Manager = require("../lib/Manager");
 
-//   return `
-//     <section class="my-3" id="about">
-//       <h2 class="text-dark bg-primary p-2 display-inline-block">About Me</h2>
-//       <p>${aboutText}</p>
-//     </section>
-//   `;
-// };
 
-// create the projects section
-const generateProjects = (employeesArr) => {
+
+// create the employee section
+let generateEmployees = (employeesArr) => {
   console.log("generate proj", employeesArr)
 
   return `
-    <section class="my-3" id="portfolio">
-      <h2 class="text-dark bg-primary p-2 display-inline-block">Work</h2>
+    <section class="my-3" id="roster">
+      <h2 class="text-dark bg-primary p-2 display-inline-block">Employees</h2>
       <div class="flex-row justify-space-between">
       ${employeesArr
-        .filter(({ name }) => name)
-        .map(({ id, email, officeNumbers, github, school }) => {
+        
+        .map(({ name, id, email, officeNumbers }) => {
           return `
           <div class="col-12 mb-2 bg-dark text-light p-3">
             <h3 class="portfolio-item-title text-light">${name}</h3>
             
             <p>${officeNumbers}</p>
             <p>${id}</p>
-            <p>${email}</p>
-            <p>${school}</p>
-            <a href="github.com/${github}" class="btn"><i class="fab fa-github mr-2"></i>View Employee on GitHub</a>
-          </div>
-        `;
-        })
-        .join("")}
+            <p>
+            <a href="mailto:${email}">email</a>
+            </p>
 
-      ${employeesArr
-        .filter(({ name }) => !name)
-        .map(({ id, email, officeNumbers, github, school }) => {
-          return `
-          <div class="col-12 col-md-6 mb-2 bg-dark text-light p-3 flex-column">
-            <h3 class="portfolio-item-title text-light">${name}</h3>
-       
-            <p>${officeNumbers}</p>
-            <p>${id}</p>
-            <p>${email}</p>
-            <p>${school}</p>
-            <a href="github.com/${github}" class="btn"><i class="fab fa-github mr-2"></i>View Employee on GitHub</a>
           </div>
         `;
         })
         .join("")}
+      </div>
+
+
+
       </div>
     </section>
   `;
@@ -61,10 +39,9 @@ const generateProjects = (employeesArr) => {
 // export function to generate entire page
 module.exports = (templateData) => { 
  
-  // destructure page data by section
-  // const { projects, about, ...header } = templateData;
-
-console.log(templateData[0])
+  
+  console.log("here", templateData)
+  
   return `
   <!DOCTYPE html>
   <html lang="en">
@@ -72,38 +49,31 @@ console.log(templateData[0])
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Portfolio Demo</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Public+Sans:300i,300,500&display=swap" rel="stylesheet">
+    <title>Team Roster</title>
+  
+   
     <link rel="stylesheet" href="style 2.css">
   </head>
   
   <body>
     <header>
       <div class="container flex-row justify-space-between align-center py-3">
-        <h1 class="page-title text-secondary bg-dark py-2 px-3">${
-           templateData[0]
-          
-        }</h1>
-        <nav class="flex-row">
-          <a class="ml-2 my-1 px-2 py-1 bg-secondary text-dark" href="https://github.com/${
-            header.github
-          }">GitHub</a>
-        </nav>
+        <h1 class="page-title text-secondary bg-dark py-2 px-3"> 
+        "Team Roster"
+      </h1>
+        
       </div>
     </header>
     <main class="container my-5">
      
-      ${generateProjects(employeesArr)}
+      ${generateEmployees(templateData)}
+      
     </main>
-    <footer class="container text-center py-3">
-      <h3 class="text-dark">&copy; ${new Date().getFullYear()} by ${
-    header.name
-  }</h3>
-    </footer>
+    
   </body>
   </html>
   `;
-};
 
+  
+};
 

@@ -68,20 +68,29 @@ Roster.prototype.initializeRoster = function () {
             }
           },
         },
+        {
+          type: "list",
+          name: "role",
+          message: "What is the employee's role?",
+          choices: ["Manager"],
+        },
       ])
-      .then((answers ) => {
-        
+      .then((answers) => {
         console.log(answers);
-       
-        this.employeesArr.push((new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOfficeNum)))
+
+        this.employeesArr.push(
+          new Manager(
+            answers.managerName,
+            answers.managerId,
+            answers.managerEmail,
+            answers.managerOfficeNum,
+            answers.role
+          )
+        );
 
         console.table(this.employeesArr);
 
-        
-        
-        
         return this.employeeRoster(this.employeesArr);
-
       });
 };
 
@@ -181,19 +190,27 @@ Roster.prototype.setIntern = function () {
           }
         },
       },
+      {
+        type: "list",
+        name: "role",
+        message: "What is the employee's role?",
+        choices: ["Intern"],
+      },
     ])
-    .then((internAnswers) => { 
-     this.employeesArr.push(
-         new Intern(
-           internAnswers.empName,
-           internAnswers.empID,
-           internAnswers.empEmail,
-           internAnswers.empPhone,
-           internAnswers.school))
-        console.log(this.employeesArr)
-        console.table(this.employeesArr);
-        return this.statusCheck(this.employeesArr);
-
+    .then((internAnswers) => {
+      this.employeesArr.push(
+        new Intern(
+          internAnswers.empName,
+          internAnswers.empID,
+          internAnswers.empEmail,
+          internAnswers.empPhone,
+          internAnswers.school,
+          internAnswers.role,
+        )
+      );
+      console.log(this.employeesArr);
+      console.table(this.employeesArr);
+      return this.statusCheck(this.employeesArr);
     });
 }
 
@@ -263,6 +280,12 @@ Roster.prototype.setEngineer = function () {
           }
         },
       },
+      {
+        type: "list",
+        message: "What is the employee's role?",
+        name: "role",
+        choices: ["Engineer"],
+      },
     ])
     .then((engAnswers) => {
       this.employeesArr.push(
@@ -271,7 +294,8 @@ Roster.prototype.setEngineer = function () {
           engAnswers.empID,
           engAnswers.empEmail,
           engAnswers.empPhone,
-          engAnswers.github
+          engAnswers.github,
+          engAnswers.role
         )
       );
 
@@ -317,35 +341,8 @@ Roster.prototype.finalize = function (employeesArr){
   };
 
 
-  
-
 
 new Roster()
   .initializeRoster()
-
-
-
-
-  //   .then((employeesArr) => {
-  //   return generatePage(employeesArr);
-  //  })
-  // .then((pageHTML) => {
-  //   return writeFile(pageHTML);
-  // })
-//   .then((writeFileResponse) => {
-//     console.log(writeFileResponse);
-//     return copyFile();
-//   })
-//   .then((copyFileResponse) => {
-//     console.log(copyFileResponse);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
-
-
-
-
-
 
 module.exports = Roster;

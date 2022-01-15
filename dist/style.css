@@ -13,15 +13,12 @@
 background-color:  var(--blue);
 }
 
-.card-header-title {
-  font-size: 3.5;
-}
+
 .card {
-  text-align: left;
+  text-align: center;
   width: 100%;
   margin: 0;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
 }
-
 
 

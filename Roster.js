@@ -6,7 +6,7 @@ const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
 const Intern = require ("./lib/Intern");
-//const {writeFile, copyFile} = require("./utils/generate-site.js");
+
 
 function Roster() {
   this.employeesArr = [];
@@ -339,6 +339,18 @@ Roster.prototype.finalize = function (employeesArr){
       );
     });
   };
+
+  // copying file
+
+    fs.copyFile("./src/style.css", "./dist/style.css", (err) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+
+    });
+  
+
 
 
 

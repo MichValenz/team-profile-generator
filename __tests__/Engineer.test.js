@@ -11,5 +11,6 @@ test("creates an engineer object", () => {
   expect(engineer.id).toEqual(expect.any(Number));
   expect(engineer.email).toEqual(expect.any(String));
   expect(engineer.officeNumber).toEqual(expect.any(Number));
+  expect(engineer.github).toEqual(expect.any(String));
   console.log(new Engineer);
 });

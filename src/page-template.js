@@ -26,7 +26,7 @@ ${employeesArr
       <ul>
         <li class="roleTitle"> ${role}</li>
         <li> Employee ID: ${id} </li>
-        <li> <a href="${email}">Email</a> </li>
+        <li> <a href="mailto:${email}">Email</a> </li>
         <li> Phone: ${officeNumbers} </li>
         <li> School: ${school} </li>
         <li><a href="https://github.com/${github}">Github</a></li>

@@ -1,19 +1,52 @@
-# team-profile-generator
+ [![License: MIT](https://img.shields.io/static/v1?label=license&message=MIT&color=green)](https://opensource.org/licenses/MIT)
 
-GIVEN a command-line application that accepts user input
-WHEN I am prompted for my team members and their information
-THEN an HTML file is generated that displays a nicely formatted team roster based on user input
-WHEN I click on an email address in the HTML
-THEN my default email program opens and populates the TO field of the email with the address
-WHEN I click on the GitHub username
-THEN that GitHub profile opens in a new tab
-WHEN I start the application
-THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number
-WHEN I enter the team manager’s name, employee ID, email address, and office number
-THEN I am presented with a menu with the option to add an engineer or an intern or to finish building my team
-WHEN I select the engineer option
-THEN I am prompted to enter the engineer’s name, ID, email, and GitHub username, and I am taken back to the menu
-WHEN I select the intern option
-THEN I am prompted to enter the intern’s name, ID, email, and school, and I am taken back to the menu
-WHEN I decide to finish building my team
-THEN I exit the application, and the HTML is generated
+   
+
+  # team-profile-generator
+
+  ## Description 
+  The Team Profile Generator application allows users to create a roster of employees to track important employee information such as emails and phone numbers. 
+ ![screenshot of webpage](images/page.jpeg)
+
+  ## Table of Contents
+
+  * [Installation](#Installation)
+  * [Usage](#Usage)
+  * [Contributions](#Contributions)
+  * [Testing](#Testing)
+  * [License](#License)
+  * [Questions](#Questions)
+
+  ## Installation
+  The user must clone the remote repository onto their computer and use the terminal to run the generator.
+
+  ## Usage
+  To create quick and structured employee rosters.
+
+  ## Contributions
+  No contributions.
+
+  ## Testing 
+  After cloning the remote repository onto your computer open in desired code editor and use the terminal on the Roster.js file to interact. Test the project by answering the prompt questions and creating a test roster.
+
+  ![screenshot of prompt questions](images/nodeRoster.jpeg)
+
+  ## License 
+  This project has an MIT license.
+  https://opensource.org/licenses/MIT
+
+ 
+  
+
+  ## Questions
+  Need to reach me?
+  * Email: michvalenz27@gmail.com
+  * [GitHub](https://github.com/MichValenz/team-profile-generator)
+
+   ## Walkthrough Video
+   https://watch.screencastify.com/v/D8pW71l7hwvyDEAbRSCP
+
+   
+
+
+       
